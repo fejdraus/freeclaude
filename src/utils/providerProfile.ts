@@ -449,12 +449,8 @@ export function buildMiniMaxProfileEnv(options: {
 
   return {
     OPENAI_BASE_URL:
-      normalizeXiaomiMimoBaseUrl(
-        sanitizeProviderConfigValue(options.baseUrl, secretSource),
-      ) ||
-      normalizeXiaomiMimoBaseUrl(
-        sanitizeProviderConfigValue(processEnv.OPENAI_BASE_URL, secretSource),
-      ) ||
+      sanitizeProviderConfigValue(options.baseUrl, secretSource) ||
+      sanitizeProviderConfigValue(processEnv.OPENAI_BASE_URL, secretSource) ||
       defaultBaseUrl,
     OPENAI_MODEL:
       normalizeProfileModel(
@@ -535,8 +531,12 @@ export function buildXiaomiMimoProfileEnv(options: {
 
   return {
     OPENAI_BASE_URL:
-      sanitizeProviderConfigValue(options.baseUrl, secretSource) ||
-      sanitizeProviderConfigValue(processEnv.OPENAI_BASE_URL, secretSource) ||
+      normalizeXiaomiMimoBaseUrl(
+        sanitizeProviderConfigValue(options.baseUrl, secretSource),
+      ) ||
+      normalizeXiaomiMimoBaseUrl(
+        sanitizeProviderConfigValue(processEnv.OPENAI_BASE_URL, secretSource),
+      ) ||
       defaultBaseUrl,
     OPENAI_MODEL:
       normalizeProfileModel(

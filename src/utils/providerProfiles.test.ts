@@ -1400,6 +1400,7 @@ describe('setActiveProviderProfile', () => {
       const { setActiveProviderProfile } =
         await importFreshProviderProfileModules()
       const mimoProfile = buildXiaomiMimoProfile({
+        baseUrl: 'https://api.mimo-v2.com/v1',
         id: 'mimo_prof',
         model: 'mimo-v2.5-pro, mimo-v2-flash',
       })
