@@ -7,7 +7,7 @@
  * parses theme values with `parseRGB`, which only matches `rgb(...)` strings.
  */
 
-export const BRAND_NAME = 'OpenClaude'
+export const BRAND_NAME = 'FreeClaude'
 
 export const BRAND_TAGLINE = 'Open terminal for any LLM'
 
