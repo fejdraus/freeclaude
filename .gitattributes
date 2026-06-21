@@ -122,3 +122,6 @@ CODE_OF_CONDUCT* text
 *.db binary
 *.sqlite binary
 *.sqlite3 binary
+
+# Vendored build artifact — never normalize EOL so the bundle stays byte-identical
+dist/cli.mjs binary
