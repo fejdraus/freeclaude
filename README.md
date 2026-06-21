@@ -17,6 +17,47 @@ OpenClaude is also mirrored to GitLawb:
 
 [Quick Start](#quick-start) | [Setup Guides](#setup-guides) | [Providers](#supported-providers) | [Source Build](#source-build-and-local-development) | [VS Code Extension](#vs-code-extension) | [Sponsors](#sponsors) | [Community](#community)
 
+## This fork (FreeChatAPI provider)
+
+This is a fork of [Gitlawb/openclaude](https://github.com/Gitlawb/openclaude), maintained at
+[fejdraus/freeclaude](https://github.com/fejdraus/freeclaude). It adds the **FreeChatAPI**
+local provider (DeepSeek through the FreeChatAPI proxy) and disables the built-in auto-updater,
+so upstream's npm package never overwrites the fork. Install and update it from source.
+
+**Requirements:** Node.js ≥ 22, [Bun](https://bun.sh), and Git.
+
+### Install
+
+```bash
+git clone https://github.com/fejdraus/freeclaude.git openclaude
+cd openclaude
+bun install
+bun run build
+npm link                      # symlinked install — later rebuilds are picked up live
+# or a standalone copy instead of a link:
+# npm i -g . --ignore-scripts
+```
+
+Then run:
+
+```bash
+openclaude
+```
+
+### Update
+
+The auto-updater is disabled in this fork, so updates are manual:
+
+```bash
+cd openclaude
+git pull origin main
+bun install                   # only if dependencies changed
+bun run build
+```
+
+With `npm link` the new build is live immediately. If you used the `npm i -g .` copy variant,
+re-run `npm i -g . --ignore-scripts` after building.
+
 ## Sponsors
 
 <table align="center">
