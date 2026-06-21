@@ -2441,6 +2441,10 @@ class OpenAIShimMessages {
       messages: openaiMessages,
       stream: params.stream ?? false,
       store: false,
+      // Bind one openclaude session to one upstream chat: send the stable
+      // per-session id so an OpenAI-compatible proxy can key its session on it
+      // instead of guessing from message content.
+      user: getSessionId(),
     }
     // Emit reasoning_effort for chat_completions when the resolved provider
      // request carries a reasoning effort (set via /effort, model alias default,
@@ -2595,6 +2599,9 @@ class OpenAIShimMessages {
         ),
         stream: params.stream ?? false,
         store: false,
+        // Bind one openclaude session to one upstream chat (see chat_completions
+        // body above): expose the stable per-session id to the proxy.
+        user: getSessionId(),
       }
 
       if (shouldStripResponsesStore) {
