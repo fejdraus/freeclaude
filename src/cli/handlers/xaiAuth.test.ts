@@ -98,13 +98,13 @@ async function freshHandlerModules() {
 }
 
 function readProfileFile(): { profile?: string; env?: Record<string, unknown> } | null {
-  const path = join(tempConfigDir, '.openclaude-profile.json')
+  const path = join(tempConfigDir, '.freeclaude-profile.json')
   if (!existsSync(path)) return null
   return JSON.parse(readFileSync(path, 'utf8'))
 }
 
 function writeMarkerStartupProfile(): string {
-  const path = join(tempConfigDir, '.openclaude-profile.json')
+  const path = join(tempConfigDir, '.freeclaude-profile.json')
   writeFileSync(
     path,
     JSON.stringify(
@@ -126,7 +126,7 @@ function writeMarkerStartupProfile(): string {
 
 // Regression: a user who configured xAI OAuth via /provider and later
 // runs `openclaude auth xai logout` previously only had secure storage
-// cleared. The marker-tagged .openclaude-profile.json survived, leaving
+// cleared. The marker-tagged .freeclaude-profile.json survived, leaving
 // startup in a half-logged-out state — validation would still accept
 // XAI_CREDENTIAL_SOURCE=oauth while openaiShim could no longer resolve
 // a token.
@@ -164,7 +164,7 @@ test('xaiLogout leaves unrelated startup profiles intact', async () => {
   const { handlers, xaiLogoutDeps } = await freshHandlerModules()
 
   // Simulate a non-xAI startup file (e.g. an openai profile).
-  const path = join(tempConfigDir, '.openclaude-profile.json')
+  const path = join(tempConfigDir, '.freeclaude-profile.json')
   writeFileSync(
     path,
     JSON.stringify(

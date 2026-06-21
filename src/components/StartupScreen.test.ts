@@ -123,10 +123,12 @@ describe('printStartupScreen logo', () => {
     printStartupScreen()
 
     const plainOutput = stripAnsi(output)
-    expect(plainOutput).toContain('███████╗ ████████╗')
-    expect(plainOutput).toContain('██╔═══██╗ ██╔═════╝')
-    expect(plainOutput).toContain('███████╔╝ ████████╗')
-    expect(plainOutput).not.toContain('████████║ ████████╗')
+    // FREE wordmark (F + R tops) and CLAUDE bottoms (C + L), with the D/U rounded
+    // leg present and the old custom-font logo (████████║) gone.
+    expect(plainOutput).toContain('███████╗ ██████╗')
+    expect(plainOutput).toContain('╚██████╗ ███████╗')
+    expect(plainOutput).toContain('██████╔╝')
+    expect(plainOutput).not.toContain('████████║')
   })
 })
 

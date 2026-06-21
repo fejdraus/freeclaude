@@ -1439,7 +1439,7 @@ test('applySavedProfileToCurrentSession replaces empty active OpenAI key for Cod
 
 test('buildStartupEnvFromProfile preserves plural-profile env when the legacy file is stale', async () => {
   // Regression: a user saves a provider via /provider (plural system).
-  // addProviderProfile does NOT sync the legacy .openclaude-profile.json,
+  // addProviderProfile does NOT sync the legacy .freeclaude-profile.json,
   // so the legacy file retains whatever it had from an earlier setup (e.g.
   // OpenAI defaults). At startup, applyActiveProviderProfileFromConfig()
   // correctly applies the active plural profile (Moonshot) first, marking
