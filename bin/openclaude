@@ -16,13 +16,15 @@ import { homedir } from 'os'
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const distPath = join(__dirname, '..', 'dist', 'cli.mjs')
 
-// FreeClaude: isolate config from upstream openclaude. getClaudeConfigHomeDir()
-// (settings, projects, memory, sessions, history, auth — 150+ callers) honours
-// OPENCLAUDE_CONFIG_DIR, so defaulting it here points all of that at ~/.freeclaude
-// instead of the shared ~/.openclaude. Skipped if the user pinned their own dir.
-if (!process.env.OPENCLAUDE_CONFIG_DIR && !process.env.CLAUDE_CONFIG_DIR) {
-  process.env.OPENCLAUDE_CONFIG_DIR = join(homedir(), '.freeclaude')
-}
+// FreeClaude: own config home, isolated from upstream openclaude / Claude Code.
+// FREECLAUDE_CONFIG_DIR is our knob; otherwise ~/.freeclaude. We force it onto
+// OPENCLAUDE_CONFIG_DIR (the var the bundled code reads via getClaudeConfigHomeDir,
+// 150+ callers), overriding any inherited OPENCLAUDE_CONFIG_DIR/CLAUDE_CONFIG_DIR,
+// so freeclaude stays in its own dir even when those are set in the shell.
+process.env.OPENCLAUDE_CONFIG_DIR =
+  process.env.FREECLAUDE_CONFIG_DIR || join(homedir(), '.freeclaude')
+// Drop the legacy var so it can't override our value (or trigger the conflict warning).
+delete process.env.CLAUDE_CONFIG_DIR
 
 const HEAP_RELAUNCHED_ENV = 'OPENCLAUDE_HEAP_RELAUNCHED'
 const DISABLE_HEAP_RELAUNCH_ENV = 'OPENCLAUDE_DISABLE_HEAP_RELAUNCH'
