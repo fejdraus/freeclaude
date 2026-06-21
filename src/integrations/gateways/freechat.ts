@@ -29,7 +29,8 @@ export default defineGateway({
   },
   preset: {
     id: 'freechat',
-    description: 'FreeChatAPI local proxy (DeepSeek via localhost:9700)',
+    description: 'FreeChatAPI proxy — local or remote (DeepSeek)',
+    baseUrlEnvVars: ['OPENAI_BASE_URL'],
     modelEnvVars: ['OPENAI_MODEL'],
     vendorId: 'openai',
   },

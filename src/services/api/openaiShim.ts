@@ -2417,7 +2417,9 @@ class OpenAIShimMessages {
     const shimConfig = runtimeShimContext.openaiShimConfig
     // FreeChat proxy binds one openclaude session to one upstream chat: send the stable
     // per-session id in the standard `user` field, scoped to this route only.
-    const isFreechatRoute = runtimeShimContext.routeId === 'freechat'
+    const isFreechatRoute =
+      runtimeShimContext.routeId === 'freechat' ||
+      isEnvTruthy(process.env.FREECHAT)
     // When endpointPath is overridden, the body format must match the target
     // API contract rather than request.transport from providerConfig.
     // - /responses         → OpenAI Responses API (input, max_output_tokens, instructions)
