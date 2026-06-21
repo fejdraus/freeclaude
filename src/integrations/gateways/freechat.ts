@@ -34,5 +34,28 @@ export default defineGateway({
     modelEnvVars: ['OPENAI_MODEL'],
     vendorId: 'openai',
   },
+  catalog: {
+    // Live model list from the proxy's OpenAI-compatible GET /v1/models (the
+    // DeepSeek models the site currently offers). deepseek-v4-pro is kept as a
+    // static fallback so a default is always available if discovery is offline.
+    source: 'hybrid',
+    discovery: {
+      kind: 'openai-compatible',
+      requiresAuth: false,
+      mapModel(raw: unknown) {
+        const model = raw as { id?: string }
+        if (!model.id) {
+          return null
+        }
+        return { id: model.id, apiName: model.id, label: model.id }
+      },
+    },
+    discoveryCacheTtl: '1d',
+    discoveryRefreshMode: 'background-if-stale',
+    allowManualRefresh: true,
+    models: [
+      { id: 'deepseek-v4-pro', apiName: 'deepseek-v4-pro', label: 'DeepSeek V4 Pro' },
+    ],
+  },
   usage: { supported: false },
 })
