@@ -47,6 +47,7 @@ import {
   resolveRouteCredentialValue,
 } from '../../integrations/routeMetadata.js'
 import { getSessionId } from '../../bootstrap/state.js'
+import { getActiveProviderProfile } from '../../utils/providerProfiles.js'
 import {
   createThinkTagFilter,
   stripThinkTags,
@@ -2413,6 +2414,9 @@ class OpenAIShimMessages {
       baseUrl: request.baseUrl,
       model: request.resolvedModel,
       treatAsLocal: isLocalProviderUrl(request.baseUrl),
+      // Pass the active provider profile so a picker-selected route (e.g. freechat)
+      // is recognized at ANY base URL, not only when the URL matches a known host.
+      activeProfileProvider: getActiveProviderProfile()?.provider,
     })
     const shimConfig = runtimeShimContext.openaiShimConfig
     // FreeChat proxy binds one openclaude session to one upstream chat: send the stable
