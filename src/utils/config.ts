@@ -1890,7 +1890,15 @@ export function formatAutoUpdaterDisabledReason(
   }
 }
 
+// Fork policy: this is a private fork (origin: fejdraus/freeclaude). openclaude's
+// auto-updater would run `npm i -g @gitlawb/openclaude@latest` and overwrite the fork,
+// so keep it permanently disabled. Set to false to restore upstream auto-update behavior.
+const FORK_AUTOUPDATER_DISABLED: boolean = true
+
 export function getAutoUpdaterDisabledReason(): AutoUpdaterDisabledReason | null {
+  if (FORK_AUTOUPDATER_DISABLED) {
+    return { type: 'env', envVar: 'DISABLE_AUTOUPDATER' }
+  }
   if (process.env.NODE_ENV === 'development') {
     return { type: 'development' }
   }
