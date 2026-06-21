@@ -2415,6 +2415,9 @@ class OpenAIShimMessages {
       treatAsLocal: isLocalProviderUrl(request.baseUrl),
     })
     const shimConfig = runtimeShimContext.openaiShimConfig
+    // FreeChat proxy binds one openclaude session to one upstream chat: send the stable
+    // per-session id in the standard `user` field, scoped to this route only.
+    const isFreechatRoute = runtimeShimContext.routeId === 'freechat'
     // When endpointPath is overridden, the body format must match the target
     // API contract rather than request.transport from providerConfig.
     // - /responses         → OpenAI Responses API (input, max_output_tokens, instructions)
@@ -2442,6 +2445,7 @@ class OpenAIShimMessages {
       stream: params.stream ?? false,
       store: false,
     }
+    if (isFreechatRoute) body.user = getSessionId()
     // Emit reasoning_effort for chat_completions when the resolved provider
      // request carries a reasoning effort (set via /effort, model alias default,
      // or `?reasoning=<level>` query on the model string). OpenAI, Codex, and
@@ -2596,6 +2600,7 @@ class OpenAIShimMessages {
         stream: params.stream ?? false,
         store: false,
       }
+      if (isFreechatRoute) responsesBody.user = getSessionId()
 
       if (shouldStripResponsesStore) {
         delete responsesBody.store
