@@ -113,26 +113,18 @@ re-run `npm i -g . --ignore-scripts` after building.
 
 ### Install
 
-OpenClaude requires Node.js `>=22.0.0` for npm installs and runtime. Bun is
-only needed for source builds and local development.
+This fork is built from source and is not published to npm — `npm install -g @gitlawb/openclaude`
+would install the **original** project, not this fork. Build it from source as described in
+[This fork (FreeChatAPI provider)](#this-fork-freechatapi-provider) above.
 
-```bash
-npm install -g @gitlawb/openclaude@latest
-```
+Requirements: Node.js `>=22.0.0` and [Bun](https://bun.sh) for the build. If a run later reports
+`ripgrep not found`, install ripgrep system-wide and confirm `rg --version` works in the same
+terminal before starting OpenClaude.
 
-If you're on Arch Linux, you can install OpenClaude from the community-maintained [AUR package](https://aur.archlinux.org/packages/openclaude):
-```bash
-paru -S openclaude
-```
-
-If the install later reports `ripgrep not found`, install ripgrep system-wide and confirm `rg --version` works in the same terminal before starting OpenClaude.
-
-**Verify / troubleshoot installed version:**
+**Verify the installed version:**
 
 ```bash
 openclaude --version
-npm view @gitlawb/openclaude dist-tags
-npm install -g @gitlawb/openclaude@latest
 ```
 
 ### Start
