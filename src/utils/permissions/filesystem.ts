@@ -69,6 +69,7 @@ export const DANGEROUS_FILES = [
   '.ripgreprc',
   '.mcp.json',
   '.openclaude.json',
+  '.freeclaude.json',
   '.claude.json',
 ] as const
 
@@ -82,6 +83,7 @@ export const DANGEROUS_DIRECTORIES = [
   '.idea',
   '.claude',
   '.openclaude',
+  '.freeclaude',
 ] as const
 
 /**
